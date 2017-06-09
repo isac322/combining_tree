@@ -1,19 +1,11 @@
-//
-// Created by bhyoo on 17. 6. 9.
-//
-
 #include "Node.h"
 #include "PanicException.h"
 #include <iostream>
 
 bool Node::precombine() {
-	guard_lock lock(mutex_precombine);
+	guard_lock lock(mutex);
 	
-	if (locked) {
-		std::cout << "locked in precombine" << std::endl;
-		while (locked) conditional.wait(lock);
-		std::cout << "unlocked in precombine" << std::endl;
-	}
+	while (locked) conditional.wait(lock);
 	
 	switch (status) {
 		case CStatus::IDLE:
@@ -38,7 +30,7 @@ bool Node::precombine() {
 }
 
 int Node::combine(int combined) {
-	guard_lock lock(mutex_combine);
+	guard_lock lock(mutex);
 	
 	if (locked) {
 		std::cout << "locked in precombine" << std::endl;
@@ -66,7 +58,7 @@ int Node::combine(int combined) {
 }
 
 int Node::op(int combined) {
-	guard_lock lock(mutex_op);
+	guard_lock lock(mutex);
 	
 	switch (status) {
 		case CStatus::ROOT: {
@@ -98,7 +90,7 @@ int Node::op(int combined) {
 }
 
 void Node::distribute(int prior) {
-	std::lock_guard<std::recursive_mutex> lock(mutex_distribute);
+	std::lock_guard<mutex_t> lock(mutex);
 	
 	switch (status) {
 		case CStatus::FIRST:

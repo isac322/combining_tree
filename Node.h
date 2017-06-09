@@ -5,11 +5,12 @@
 #include <condition_variable>
 
 class Node {
-	typedef std::unique_lock<std::recursive_mutex> guard_lock;
+	typedef std::mutex mutex_t;
+	typedef std::unique_lock<mutex_t> guard_lock;
 	
 private:
-	std::recursive_mutex mutex_precombine, mutex_combine, mutex_op, mutex_distribute;
-	std::condition_variable_any conditional;
+	mutex_t mutex;
+	std::condition_variable conditional;
 	bool locked;
 	CStatus status;
 	int first_value, second_value;
@@ -26,7 +27,7 @@ public:
 		if (parent == nullptr) return;
 		delete parent;
 	}
-	
+
 	bool precombine();
 	
 	int combine(int combined);
