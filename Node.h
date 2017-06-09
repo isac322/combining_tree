@@ -7,7 +7,7 @@
 class Node {
 	typedef std::mutex mutex_t;
 	typedef std::unique_lock<mutex_t> guard_lock;
-	
+
 private:
 	mutex_t mutex;
 	std::condition_variable conditional;
@@ -27,7 +27,7 @@ public:
 		if (parent == nullptr) return;
 		delete parent;
 	}
-
+	
 	bool precombine();
 	
 	int combine(int combined);

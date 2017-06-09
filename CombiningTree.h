@@ -12,6 +12,7 @@ protected:
 
 public:
 	unordered_map<thread::id, size_t> thread_map;
+	
 	CombiningTree(int width);
 	
 	~CombiningTree() {
