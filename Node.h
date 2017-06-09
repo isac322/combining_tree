@@ -20,7 +20,7 @@ private:
 public:
 	Node *parent;
 	
-	Node() : parent(nullptr), status(CStatus::ROOT) {}
+	Node() : parent(nullptr), status(CStatus::ROOT), is_left(false) {}
 	
 	Node(Node *parent, bool is_left) : parent(parent), status(CStatus::IDLE), is_left(is_left) {}
 	
