@@ -7,6 +7,7 @@
 class CombiningTree {
 protected:
 	Node **leaves;
+	int width;
 
 public:
 	std::unordered_map<std::thread::id, size_t> thread_map;
@@ -14,6 +15,7 @@ public:
 	CombiningTree(int width);
 	
 	~CombiningTree() {
+		for (int i = 0; i < width; i++) delete leaves[i];
 		delete[] leaves;
 	}
 	

@@ -6,12 +6,12 @@
 #include <stack>
 #include <iostream>
 
-CombiningTree::CombiningTree(int width) : leaves(new Node *[(width + 1) / 2]) {
+CombiningTree::CombiningTree(int width) : width(width), leaves(new Node *[(width + 1) / 2]) {
 	Node *nodes[width - 1];
 	nodes[0] = new Node();
 	
 	for (size_t i = 1; i < width - 1; ++i)
-		nodes[i] = new Node(nodes[(i - 1) / 2]);
+		nodes[i] = new Node(nodes[(i - 1) / 2], (i & 1) == 1);
 	
 	for (size_t i = 0; i < (width + 1) / 2; ++i)
 		leaves[i] = nodes[width - i - 2];

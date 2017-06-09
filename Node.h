@@ -12,6 +12,7 @@ private:
 	mutex_t mutex;
 	std::condition_variable conditional;
 	bool locked = false;
+	bool is_left;
 	CStatus status;
 	int first_value, second_value;
 	int result;
@@ -21,11 +22,11 @@ public:
 	
 	Node() : parent(nullptr), status(CStatus::ROOT) {}
 	
-	Node(Node *parent) : parent(parent), status(CStatus::IDLE) {}
+	Node(Node *parent, bool is_left) : parent(parent), status(CStatus::IDLE), is_left(is_left) {}
 	
 	~Node() {
 		if (parent == nullptr) return;
-		delete parent;
+		else if (is_left) delete parent;
 	}
 	
 	bool precombine();
