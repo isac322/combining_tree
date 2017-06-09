@@ -16,7 +16,7 @@ public:
 	
 	~CombiningTree() {
 		for (int i = 0; i < (width + 1) / 2; i++) delete leaves[i];
-		delete[] leaves;
+		delete leaves;
 	}
 	
 	int getAndIncrement();
