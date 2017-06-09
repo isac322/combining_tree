@@ -1,7 +1,3 @@
-//
-// Created by bhyoo on 17. 6. 9.
-//
-
 #include "CombiningTree.h"
 #include <stack>
 #include <iostream>

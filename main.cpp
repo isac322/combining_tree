@@ -5,14 +5,22 @@
 
 using namespace std;
 
+mutex mutex_map;
+
 void run(CombiningTree *tree, const size_t id) {
+	mutex_map.lock();
 	tree->thread_map[this_thread::get_id()] = id;
+	mutex_map.unlock();
 	
 	try {
 		cout << tree->getAndIncrement() << endl;
 	} catch (PanicException e) {
 		cerr << e.what() << endl;
 	}
+	
+	mutex_map.lock();
+	tree->thread_map.erase(this_thread::get_id());
+	mutex_map.unlock();
 }
 
 int main() {
