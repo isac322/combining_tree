@@ -32,7 +32,7 @@ int CombiningTree::getAndIncrement() {
 	int combined = 1;
 	for (Node *node = my_leaf; node != stop; node = node->parent) {
 		combined = node->combine(combined);
-		stack.push(node);
+		stack.emplace(node);
 	}
 	
 	// operation phase

@@ -32,11 +32,7 @@ bool Node::precombine() {
 int Node::combine(int combined) {
 	guard_lock lock(mutex);
 	
-	if (locked) {
-		std::cout << "locked in precombine" << std::endl;
-		while (locked) conditional.wait(lock);
-		std::cout << "unlocked in precombine" << std::endl;
-	}
+	while (locked) conditional.wait(lock);
 	
 	locked = true;
 	first_value = combined;
@@ -90,7 +86,7 @@ int Node::op(int combined) {
 }
 
 void Node::distribute(int prior) {
-	std::lock_guard<mutex_t> lock(mutex);
+	guard_lock lock(mutex);
 	
 	switch (status) {
 		case CStatus::FIRST:

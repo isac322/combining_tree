@@ -4,14 +4,12 @@
 #include <unordered_map>
 #include <thread>
 
-using namespace std;
-
 class CombiningTree {
 protected:
 	Node **leaves;
 
 public:
-	unordered_map<thread::id, size_t> thread_map;
+	std::unordered_map<std::thread::id, size_t> thread_map;
 	
 	CombiningTree(int width);
 	

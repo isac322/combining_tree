@@ -11,7 +11,7 @@ class Node {
 private:
 	mutex_t mutex;
 	std::condition_variable conditional;
-	bool locked;
+	bool locked = false;
 	CStatus status;
 	int first_value, second_value;
 	int result;
@@ -19,9 +19,9 @@ private:
 public:
 	Node *parent;
 	
-	Node() : parent(nullptr), status(CStatus::ROOT), locked(false) {}
+	Node() : parent(nullptr), status(CStatus::ROOT) {}
 	
-	Node(Node *parent) : parent(parent), status(CStatus::IDLE), locked(false) {}
+	Node(Node *parent) : parent(parent), status(CStatus::IDLE) {}
 	
 	~Node() {
 		if (parent == nullptr) return;
