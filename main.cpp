@@ -1,8 +1,11 @@
 #include <iostream>
 #include <thread>
+#include <vector>
 #include "CombiningTree.h"
 #include "PanicException.h"
 #include "Timer.h"
+
+#define SIZE 32768
 
 using namespace std;
 
@@ -25,13 +28,13 @@ void run(CombiningTree *tree, const size_t id) {
 }
 
 int main() {
-	CombiningTree tree(256);
-	array<thread *, 128> threads;
+	CombiningTree tree(SIZE);
+	vector<thread *> threads;
 	
 	Timer timer;
 	
-	for (size_t i = 0; i < threads.size(); i++) {
-		threads[i] = new thread(run, &tree, i);
+	for (size_t i = 0; i < SIZE >> 1; i++) {
+		threads.emplace_back(new thread(run, &tree, i));
 	}
 	
 	for (auto &thread : threads) thread->join();
