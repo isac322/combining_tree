@@ -15,7 +15,7 @@ private:
 	bool is_left;
 	CStatus status;
 	int first_value, second_value;
-	int result;
+	int result, tmp;
 
 public:
 	Node *parent;

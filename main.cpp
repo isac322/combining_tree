@@ -5,7 +5,7 @@
 #include "PanicException.h"
 #include "Timer.h"
 
-#define SIZE 32768
+#define SIZE 1024
 
 using namespace std;
 
@@ -39,5 +39,5 @@ int main() {
 	
 	for (auto &thread : threads) thread->join();
 	
-	cout << timer.elapsed() << "seconds" << endl;
+	cout << timer.elapsed() << " seconds" << endl;
 }
